@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import TimeInput from '../lib/TimeInput.svelte';
 
   let cur = 0;
   let max = 10;
@@ -34,12 +35,14 @@
 
 <main>
 <form on:submit|preventDefault={startStop}>
-  <input type="number" bind:value={cur} min="0" max={max} />
-  /
-  <input type="number" bind:value={max} min="0" />
-  <button type="submit">{interval ? 'Stop' : 'Start'}</button>
+<input type="number" bind:value={cur} min="0" max={max} />
+/
+<input type="number" bind:value={max} min="0" />
+<button type="submit">{interval ? 'Stop' : 'Start'}</button>
 </form>
 <input type="range" bind:value={cur} min="0" max={max} />
+<TimeInput bind:value={cur}/>
+<TimeInput bind:value={max}/>
 </main>
 <audio id="endSound" src="./beep.ogg"></audio>
 
