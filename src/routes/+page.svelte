@@ -44,9 +44,9 @@
 <main class="flex flex-col items-center justify-center h-screen bg-gray-800 text-white gap-4">
   <input type="range" bind:value={cur} min="0" {max} class="range" />
   <div id="textual">
-    <TimeInput bind:value={cur} />
+    <TimeInput bind:value={() => cur, v => ((cur = v), (max = Math.max(max, cur)))} />
     <span class="muted">of</span>
-    <TimeInput bind:value={max} />
+    <TimeInput bind:value={() => max, v => ((max = v), (cur = Math.min(max, cur)))} />
   </div>
   <button type="button" class="btn btn-primary w-50" onclick={click}>{action}</button>
 </main>
