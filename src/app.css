@@ -4,16 +4,10 @@
 :root {
 	font-size: 32px;
 }
-.input {
-  @apply input;
-  border: none;
-&:not(:focus) {
-  background-color: transparent;
-  box-shadow: none;
-  }
-  &:focus {
-    @apply outline-none;
-  }
+
+.muted {
+    color: var(--color-gray-400);
 }
+
 /* TODO: Include only what I need!
  * See https://v5.daisyui.com/docs/config/ */

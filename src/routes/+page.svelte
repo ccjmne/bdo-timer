@@ -1,62 +1,61 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import TimeInput from '../lib/TimeInput.svelte';
-    import ticks from '$lib/d3-array/ticks';
+  import { onDestroy, onMount } from 'svelte'
+  import TimeInput from '../lib/TimeInput.svelte'
 
   let cur = $state(0)
   let max = $state(1200)
   let interval: number | null = $state(null)
-  let endSound: HTMLAudioElement;
+  let endSound: HTMLAudioElement
 
-  function startStop() {
-    if (interval) {
-      clearInterval(interval);
-      interval = null;
-    } else {
-      if (cur === max) {
-        cur = 0;
+  let running = $derived(interval !== null)
+  let action = $derived(running ? 'Pause' : { 0: 'Start', [max]: 'Restart' }[cur] || 'Resume')
+
+  function resume() {
+    clearInterval(interval!)
+    interval = setInterval(() => {
+      if ((cur = Math.min(max, cur + 1)) === max) {
+        pause()
+        endSound.play()
       }
-
-      interval = setInterval(() => {
-        if (cur >= max) {
-          clearInterval(interval!);
-          interval = null;
-          endSound.play();
-        } else {
-          cur += 1;
-        }
-      }, 100);
-    }
+    }, 1000)
   }
 
-  onMount(() => {
-    endSound = document.querySelector('#endSound')!;
-  });
+  function pause() {
+    clearInterval(interval!)
+    interval = null
+  }
 
-  let theticks = $derived(ticks(0, max, 5))
+  function click() {
+    if (running) {
+      return pause()
+    }
+    if (cur === max) {
+      cur = 0
+    }
+    resume()
+  }
+
+  onDestroy(pause)
+  onMount(() => {
+    endSound = document.querySelector('#endSound')!
+  })
 </script>
 
-<main class="flex flex-col items-center justify-center h-screen bg-gray-800 text-white">
-  <form on:submit|preventDefault={startStop} class="flex items-center space-x-2">
-    <input type="number" bind:value={cur} min="0" max={max} class="input w-20" />
-    <span>/</span>
-    <input type="number" bind:value={max} min="0" class="input w-20 border-none" />
-    <button type="submit" class="btn btn-primary">{interval ? 'Stop' : 'Start'}</button>
-  </form>
-  <div class="w-full max-w-xs">
-    <input type="range" bind:value={cur} min="0" max={max} class="range" />
-    <div class="flex justify-between px-2.5 mt-2 text-xs">
-{#each theticks as tick, index}
-    <span>|</span>
-{/each}
-    </div>
-    <div class="flex justify-between px-2.5 mt-2 text-xs">
-{#each theticks as tick, index}
-  <span>{tick}</span>
-{/each}
-    </div>
+<main class="flex flex-col items-center justify-center h-screen bg-gray-800 text-white gap-2">
+  <input type="range" bind:value={cur} min="0" {max} class="range" />
+  <div id="textual">
+    <TimeInput bind:value={cur} />
+    <span class="muted">of</span>
+    <TimeInput bind:value={max} />
   </div>
-  <TimeInput bind:value={cur}/>
-  <TimeInput bind:value={max}/>
+  <button type="button" class="btn btn-primary w-50" onclick={click}>{action}</button>
 </main>
 <audio id="endSound" src="./beep.ogg"></audio>
+
+<style>
+  #textual {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+  }
+</style>
