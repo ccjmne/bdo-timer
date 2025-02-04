@@ -42,7 +42,9 @@
     if (cur === max) {
       cur = 0
     }
-    resume()
+    if (runnable) {
+      resume()
+    }
   }
 
   onDestroy(pause)
