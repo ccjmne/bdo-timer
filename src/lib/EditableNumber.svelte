@@ -19,14 +19,13 @@
     bind:innerText={() => String(value), v => (value = parseInt(v))}
     onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
   ></div>
-  <small>{@render children?.()}</small>
+  <label class="muted">{@render children?.()}</label>
 </div>
 
 <style>
-  small {
+  label {
     display: block;
     text-align: center;
     font-size: 0.6em;
-    color: var(--color-gray-400);
   }
 </style>
