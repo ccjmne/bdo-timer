@@ -16,16 +16,18 @@
 
   function resume() {
     clearInterval(interval!)
-    interval = setInterval(() => {
-      if ((cur = Math.min(max, cur + 1)) === max) {
-        endSound.play()
-        pause()
-        if (loop) {
-          click()
-        }
-      }
-    }, 1000)
+    interval = setInterval(() => (cur = Math.min(max, cur + 1)), 1000)
   }
+
+  $effect(() => {
+    if (running && cur >= max) {
+      endSound.play()
+      pause()
+      if (loop) {
+        click()
+      }
+    }
+  })
 
   function pause() {
     clearInterval(interval!)
