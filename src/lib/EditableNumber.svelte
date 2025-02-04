@@ -16,7 +16,7 @@
     contenteditable="true"
     onfocus={select}
     onkeypress={e => isNaN(parseInt(e.key)) && e.preventDefault()}
-    bind:innerText={() => String(value), v => (value = parseInt(v))}
+    bind:innerText={() => String(value), v => (value = isNaN(parseInt(v)) ? 0 : parseInt(v))}
     onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
   ></div>
   <label class="muted">{@render children?.()}</label>
