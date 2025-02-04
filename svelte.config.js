@@ -15,9 +15,9 @@ const config = {
                         fallback: 'index.html',
                 }),
                 paths: {
-                        base: '/bdo-timer',
+                        base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
                 },
-        }
+        },
 }
 
 export default config
