@@ -14,8 +14,11 @@
     clearInterval(interval!)
     interval = setInterval(() => {
       if ((cur = Math.min(max, cur + 1)) === max) {
-        pause()
         endSound.play()
+        pause()
+        if (loop) {
+          click()
+        }
       }
     }, 1000)
   }
@@ -39,9 +42,17 @@
   onMount(() => {
     endSound = document.querySelector('#endSound')!
   })
+
+  let loop = $state(false)
 </script>
 
 <main class="flex flex-col items-center justify-center h-screen bg-gray-800 text-white gap-4">
+  <div style="font-size: .5em">
+    <label class="fieldset-label">
+      <input type="checkbox" bind:checked={loop} class="toggle toggle-xs" />
+      Loop: {loop ? 'on' : 'off'}
+    </label>
+  </div>
   <input type="range" bind:value={cur} min="0" {max} class="range" />
   <div id="textual">
     <TimeInput bind:value={() => cur, v => ((cur = v), (max = Math.max(max, cur)))} />
