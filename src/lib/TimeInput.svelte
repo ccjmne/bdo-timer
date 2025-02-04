@@ -18,16 +18,8 @@
   }
 </script>
 
-<div class="grid grid-cols-5 text-center">
+<div class="grid grid-cols-3 gap-0.75 text-center">
   <EditableNumber bind:value={() => hours, setHours}>hours</EditableNumber>
-  <span class="muted text-lg opacity-40">:</span>
   <EditableNumber bind:value={() => minutes, setMinutes}>minutes</EditableNumber>
-  <span class="muted text-lg opacity-40">:</span>
   <EditableNumber bind:value={() => seconds, setSeconds}>seconds</EditableNumber>
 </div>
-
-<style>
-  div {
-    grid-template-columns: repeat(3, 1fr auto);
-  }
-</style>
