@@ -2,11 +2,11 @@
 @plugin "daisyui";
 
 :root {
-	font-size: 32px;
+  font-size: 32px;
 }
 
 .muted {
-    color: var(--color-gray-400);
+  color: var(--color-gray-400);
 }
 
 /* TODO: Include only what I need!

@@ -41,7 +41,7 @@
   })
 </script>
 
-<main class="flex flex-col items-center justify-center h-screen bg-gray-800 text-white gap-2">
+<main class="flex flex-col items-center justify-center h-screen bg-gray-800 text-white gap-4">
   <input type="range" bind:value={cur} min="0" {max} class="range" />
   <div id="textual">
     <TimeInput bind:value={cur} />
