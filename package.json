@@ -20,5 +20,14 @@
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
 		"vite": "^6.0.0"
+	},
+	"dependencies": {
+		"@tailwindcss/postcss": "^4.0.3",
+		"autoprefixer": "^10.4.20",
+		"daisyui": "5.0.0-beta.6",
+		"postcss": "^8.5.1",
+		"postcss-import": "^16.1.0",
+		"postcss-nested": "^7.0.2",
+		"tailwindcss": "^4.0.3"
 	}
 }

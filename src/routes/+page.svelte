@@ -1,10 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import TimeInput from '../lib/TimeInput.svelte';
+    import ticks from '$lib/d3-array/ticks';
 
-  let cur = 0;
-  let max = 10;
-  let interval: number | null = null;
+  let cur = $state(0)
+  let max = $state(1200)
+  let interval: number | null = $state(null)
   let endSound: HTMLAudioElement;
 
   function startStop() {
@@ -31,46 +32,31 @@
   onMount(() => {
     endSound = document.querySelector('#endSound')!;
   });
+
+  let theticks = $derived(ticks(0, max, 5))
 </script>
 
-<main>
-<form on:submit|preventDefault={startStop}>
-<input type="number" bind:value={cur} min="0" max={max} />
-/
-<input type="number" bind:value={max} min="0" />
-<button type="submit">{interval ? 'Stop' : 'Start'}</button>
-</form>
-<input type="range" bind:value={cur} min="0" max={max} />
-<TimeInput bind:value={cur}/>
-<TimeInput bind:value={max}/>
+<main class="flex flex-col items-center justify-center h-screen bg-gray-800 text-white">
+  <form on:submit|preventDefault={startStop} class="flex items-center space-x-2">
+    <input type="number" bind:value={cur} min="0" max={max} class="input w-20" />
+    <span>/</span>
+    <input type="number" bind:value={max} min="0" class="input w-20 border-none" />
+    <button type="submit" class="btn btn-primary">{interval ? 'Stop' : 'Start'}</button>
+  </form>
+  <div class="w-full max-w-xs">
+    <input type="range" bind:value={cur} min="0" max={max} class="range" />
+    <div class="flex justify-between px-2.5 mt-2 text-xs">
+{#each theticks as tick, index}
+    <span>|</span>
+{/each}
+    </div>
+    <div class="flex justify-between px-2.5 mt-2 text-xs">
+{#each theticks as tick, index}
+  <span>{tick}</span>
+{/each}
+    </div>
+  </div>
+  <TimeInput bind:value={cur}/>
+  <TimeInput bind:value={max}/>
 </main>
 <audio id="endSound" src="./beep.ogg"></audio>
-
-<style lang="scss">
-main {
-    display: flex;
-    place-content: center;
-    background: #333;
-    color: ghostwhite;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-:root * {
-    font-size: 24px;
-}
-
-input[type="number"] {
-    border: none;
-    background: transparent;
-    outline: none;
-    color: inherit;
-    width: 4ch;
-}
-
-input[type="range"] {
-    width: 90vw;
-}
-</style>
-
