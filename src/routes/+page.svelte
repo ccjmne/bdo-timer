@@ -12,7 +12,7 @@
 
   let runnable = $derived(max > 0)
   let running = $derived(interval !== null)
-  let action = $derived(running ? 'Pause' : { 0: 'Start', [max]: 'Restart' }[cur] || 'Resume')
+  let action = $derived(running ? 'Pause' : { [max]: 'Restart', 0: 'Start' }[cur] || 'Resume')
   let cssdir = $derived(dir ? 'direction: ltr' : 'direction: rtl')
 
   function resume() {
