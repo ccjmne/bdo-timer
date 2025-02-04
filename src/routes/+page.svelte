@@ -10,6 +10,7 @@
   let loop = $state(false)
   let dir = $state(true)
 
+  let runnable = $derived(max > 0)
   let running = $derived(interval !== null)
   let action = $derived(running ? 'Pause' : { 0: 'Start', [max]: 'Restart' }[cur] || 'Resume')
   let cssdir = $derived(dir ? 'direction: ltr' : 'direction: rtl')
@@ -73,7 +74,7 @@
       <TimeInput bind:value={() => max, v => ((cur = Math.max(0, cur + v - max)), (max = v))} />
     {/if}
   </div>
-  <button type="button" class="btn btn-primary w-50" onclick={click}>{action}</button>
+  <button type="button" class="btn w-50" disabled={!runnable} onclick={click}>{action}</button>
 </main>
 <audio id="endSound" src="./beep.ogg"></audio>
 
