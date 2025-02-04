@@ -53,8 +53,8 @@
   })
 </script>
 
-<main class="flex flex-col items-center justify-center h-screen bg-gray-800 text-white gap-4">
-  <div id="controls" class="w-50">
+<main class="flex flex-col text-white gap-4">
+  <div id="controls" class="w-full flex justify-evenly text-xs">
     <label class="fieldset-label">
       <input type="checkbox" bind:checked={loop} class="toggle toggle-xs" />
       Loop: {loop ? 'on' : 'off'}
@@ -64,33 +64,29 @@
       Count: {dir ? 'up' : 'down'}
     </label>
   </div>
-  <input type="range" bind:value={cur} min={0} {max} class="range" style={cssdir} />
-  <div id="textual">
-    {#if dir}
-      <TimeInput bind:value={() => cur, v => ((max = Math.max(max, v)), (cur = v))} />
-      <span class="muted">to</span>
-      <TimeInput bind:value={() => max, v => ((max = v), (cur = Math.min(v, cur)))} />
-    {:else}
-      <TimeInput bind:value={() => max - cur, v => ((max = Math.max(max, v)), (cur = max - v))} />
-      <span class="muted">from</span>
-      <TimeInput bind:value={() => max, v => ((cur = Math.max(0, cur + v - max)), (max = v))} />
-    {/if}
+  <input type="range" bind:value={cur} min={0} {max} class="range w-full" style={cssdir} />
+  <div class="flex flex-col gap-2 sm:flex-row place-items-center w-full justify-between">
+    <fieldset class="fieldset bg-base-200 border border-base-300 p-4 rounded-box">
+      {#if dir}
+        <legend class="fieldset-legend h-0">Elapsed</legend>
+        <TimeInput bind:value={() => cur, v => ((max = Math.max(max, v)), (cur = v))} />
+      {:else}
+        <legend class="fieldset-legend h-0">Remaining</legend>
+        <TimeInput bind:value={() => max - cur, v => ((max = Math.max(max, v)), (cur = max - v))} />
+      {/if}
+    </fieldset>
+    <span class="muted text-sm max-sm:hidden">of</span>
+    <div class="flex flex-row place-items-center gap-4">
+      <span class="muted text-sm sm:hidden">of</span>
+      {#if dir}
+        <TimeInput bind:value={() => max, v => ((max = v), (cur = Math.min(v, cur)))} />
+      {:else}
+        <TimeInput bind:value={() => max, v => ((cur = Math.max(0, cur + v - max)), (max = v))} />
+      {/if}
+    </div>
   </div>
-  <button type="button" class="btn w-50" disabled={!runnable} onclick={click}>{action}</button>
+  <button type="button" class="btn self-center" disabled={!runnable} onclick={click}>
+    {action}
+  </button>
 </main>
 <audio id="endSound" src="./beep.ogg"></audio>
-
-<style>
-  #textual {
-    display: flex;
-    align-items: center;
-    gap: 2em;
-  }
-
-  #controls {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 1em;
-    font-size: 0.5em;
-  }
-</style>

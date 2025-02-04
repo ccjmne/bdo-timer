@@ -10,7 +10,7 @@
   }
 </script>
 
-<div>
+<div class="text-xl">
   <div
     role="none"
     contenteditable="true"
@@ -19,13 +19,11 @@
     bind:innerText={() => String(value), v => (value = isNaN(parseInt(v)) ? 0 : parseInt(v))}
     onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
   ></div>
-  <label class="muted">{@render children?.()}</label>
+  <label class="block text-center muted">{@render children?.()}</label>
 </div>
 
 <style>
   label {
-    display: block;
-    text-align: center;
-    font-size: 0.6em;
+    font-size: 0.4em;
   }
 </style>
