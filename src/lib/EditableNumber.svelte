@@ -14,9 +14,9 @@
   <div
     role="none"
     contenteditable="true"
+    bind:innerText={() => String(value), v => (value = isNaN(parseInt(v)) ? 0 : parseInt(v))}
     onfocus={select}
     onkeypress={e => isNaN(parseInt(e.key)) && e.preventDefault()}
-    bind:innerText={() => String(value), v => (value = isNaN(parseInt(v)) ? 0 : parseInt(v))}
     onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
   ></div>
   <label class="block text-center muted">{@render children?.()}</label>
