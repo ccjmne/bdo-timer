@@ -22,7 +22,8 @@
     if (value > max) value = max
   })
 
-  function select(e: FocusEvent) {
+  // Select all the text when the input is focused
+  function onfocus(e: FocusEvent) {
     const range = document.createRange()
     range.selectNodeContents(e.target as HTMLElement)
     const sel = window.getSelection()!
@@ -51,8 +52,8 @@
     role="none"
     contenteditable="true"
     bind:innerText={serialise, deserialise}
-    onfocus={select}
     onkeypress={e => isNaN(parseInt(e.key)) && e.preventDefault()}
+    {onfocus}
     {onwheel}
   ></div>
   {#if children}
