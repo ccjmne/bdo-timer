@@ -5,9 +5,17 @@
     value = $bindable(0),
     min = -Infinity,
     max = Infinity,
+    zeroisinfinity = false,
     children,
     class: cls,
-  }: { value: number; min?: number; max?: number; children?: Snippet; class?: string } = $props()
+  }: {
+    value: number
+    min?: number
+    max?: number
+    zeroisinfinity?: boolean
+    children?: Snippet
+    class?: string
+  } = $props()
 
   $effect(() => {
     if (value < min) value = min
@@ -29,6 +37,13 @@
   function deserialise(v: string) {
     value = isNaN(parseInt(v)) ? 0 : parseInt(v)
   }
+
+  function onwheel({ deltaY }: WheelEvent) {
+    value =
+      zeroisinfinity && value === Infinity && deltaY < 0
+        ? 1
+        : Math.max(min, Math.min(max, value - Math.sign(deltaY)))
+  }
 </script>
 
 <div class="{cls} text-xl text-center flex flex-col place-content-center">
@@ -38,7 +53,7 @@
     bind:innerText={serialise, deserialise}
     onfocus={select}
     onkeypress={e => isNaN(parseInt(e.key)) && e.preventDefault()}
-    onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
+    {onwheel}
   ></div>
   {#if children}
     <label class="block text-center muted">{@render children()}</label>
