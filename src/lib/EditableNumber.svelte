@@ -4,7 +4,8 @@
   let {
     value = $bindable(0),
     children,
-  }: { value: number; children?: Snippet } = $props()
+    class: cls,
+  }: { value: number; children?: Snippet; class?: string } = $props()
 
   function select(e: FocusEvent) {
     const range = document.createRange()
@@ -15,7 +16,7 @@
   }
 </script>
 
-<div class="text-xl text-center flex flex-col place-content-center">
+<div class="{cls} text-xl text-center flex flex-col place-content-center">
   <div
     role="none"
     contenteditable="true"
