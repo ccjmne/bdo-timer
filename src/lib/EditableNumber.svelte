@@ -1,5 +1,10 @@
 <script lang="ts">
-  let { value = $bindable(0), children } = $props()
+  import type { Snippet } from 'svelte'
+
+  let {
+    value = $bindable(0),
+    children,
+  }: { value: number; children?: Snippet } = $props()
 
   function select(e: FocusEvent) {
     const range = document.createRange()
@@ -10,7 +15,7 @@
   }
 </script>
 
-<div class="text-xl">
+<div class="text-xl text-center flex flex-col place-content-center">
   <div
     role="none"
     contenteditable="true"
@@ -19,7 +24,9 @@
     onkeypress={e => isNaN(parseInt(e.key)) && e.preventDefault()}
     onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
   ></div>
-  <label class="block text-center muted">{@render children?.()}</label>
+  {#if children}
+    <label class="block text-center muted">{@render children()}</label>
+  {/if}
 </div>
 
 <style>
