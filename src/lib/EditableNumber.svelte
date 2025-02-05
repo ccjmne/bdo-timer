@@ -47,6 +47,24 @@
 </div>
 
 <style>
+  @font-face {
+    font-family: Syne;
+    src: url('/syne.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: Outfit;
+    src: url('/outfit.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  .container {
+    font-family: 'Syne', 'Outfit', sans-serif;
+  }
+
   label {
     font-size: 0.4em;
   }
