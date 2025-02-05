@@ -2,8 +2,6 @@
   import type { Snippet } from 'svelte'
   import EditableNumber from './EditableNumber.svelte'
 
-  // TODO: Interrupting the looping should go back to `loop` instead of 1
-  // That's not all, though... the icon should be a 'loop more' icon when loop === loops, etc...
   // FIXME: Also, we can't scroll down to Infinity anymore, since we can't go lower than `loop`...
 
   let {
@@ -18,7 +16,7 @@
     <button
       aria-label={loops === 1 ? 'Repeat' : 'Do not repeat'}
       class="btn join-item"
-      onclick={() => (loops = loops === 1 ? Infinity : 1)}
+      onclick={() => (loops = loops === loop ? Infinity : loop)}
     >
       <!--
 The SVG icons in this file were obtained from https://tabler.io/icons.
@@ -50,7 +48,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="2"
-          d={loops === 1
+          d={loops === loop
             ? 'M4 12V9a3 3 0 0 1 3-3h13m-3-3l3 3l-3 3m3 3v3a3 3 0 0 1-3 3H4m3 3l-3-3l3-3'
             : 'M4 12V9a3 3 0 0 1 2.08-2.856M10 6h10m-3-3l3 3l-3 3m3 3v3a3 3 0 0 1-.133.886m-1.99 1.984A3 3 0 0 1 17 18H4m3 3l-3-3l3-3M3 3l18 18'}
         /></svg
