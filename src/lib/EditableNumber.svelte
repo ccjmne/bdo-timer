@@ -32,14 +32,16 @@
   }
 </script>
 
-<div class="{cls} text-xl text-center flex flex-col place-content-center">
+<div
+  class="{cls} text-xl text-center flex flex-col place-content-center container"
+  onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
+>
   <div
     role="none"
     contenteditable="true"
     bind:innerText={serialise, deserialise}
     {onfocus}
     onkeypress={e => isNaN(parseInt(e.key)) && e.preventDefault()}
-    onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
   ></div>
   {#if children}
     <label class="block text-center muted">{@render children()}</label>
