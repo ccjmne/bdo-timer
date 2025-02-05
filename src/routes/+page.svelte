@@ -69,7 +69,7 @@
       {action}
     </button>
   </LoopControls>
-  <div id="controls" class="w-full flex justify-evenly text-xs hidden">
+  <div id="controls" class="w-full flex justify-evenly text-xs">
     <!-- <label class="fieldset-label"> -->
     <!--   <input type="checkbox" bind:checked={loop} class="toggle toggle-xs" /> -->
     <!--   Loop: {loop ? 'on' : 'off'} -->
