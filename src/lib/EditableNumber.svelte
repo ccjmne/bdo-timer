@@ -3,9 +3,16 @@
 
   let {
     value = $bindable(0),
+    min = -Infinity,
+    max = Infinity,
     children,
     class: cls,
-  }: { value: number; children?: Snippet; class?: string } = $props()
+  }: { value: number; min?: number; max?: number; children?: Snippet; class?: string } = $props()
+
+  $effect(() => {
+    if (value < min) value = min
+    if (value > max) value = max
+  })
 
   function select(e: FocusEvent) {
     const range = document.createRange()
