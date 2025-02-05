@@ -65,7 +65,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
   ></EditableNumber>
   <div class="join-item bg-base-100 px-2 muted relative top-[1px] flex place-items-center">of</div>
   <EditableNumber
-    zeroisinfinity={true}
     class="bg-base-100 pe-4"
     bind:value={() => loops, v => ((loops = v), (loop = Math.min(loop, loops)))}
   ></EditableNumber>
