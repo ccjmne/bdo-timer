@@ -14,13 +14,21 @@
     sel.removeAllRanges()
     sel.addRange(range)
   }
+
+  function serialise() {
+    return value === Infinity ? '∞' : String(value)
+  }
+
+  function deserialise(v: string) {
+    value = isNaN(parseInt(v)) ? 0 : parseInt(v)
+  }
 </script>
 
 <div class="{cls} text-xl text-center flex flex-col place-content-center">
   <div
     role="none"
     contenteditable="true"
-    bind:innerText={() => String(value), v => (value = isNaN(parseInt(v)) ? 0 : parseInt(v))}
+    bind:innerText={serialise, deserialise}
     onfocus={select}
     onkeypress={e => isNaN(parseInt(e.key)) && e.preventDefault()}
     onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
