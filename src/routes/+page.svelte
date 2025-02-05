@@ -1,18 +1,26 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
   import TimeInput from '../lib/TimeInput.svelte'
+  import LoopControls from '$lib/LoopControls.svelte'
 
   let cur = $state(0)
   let max = $state(1200)
   let interval: number | null = $state(null)
   let endSound: HTMLAudioElement
 
-  let loop = $state(false)
+  let loop = $state(1)
+  let loops = $state(Infinity)
+  let looping = $derived(loop < loops)
   let dir = $state(true)
 
   let runnable = $derived(max > 0)
   let running = $derived(interval !== null)
-  let action = $derived(running ? 'Pause' : { [max]: 'Restart', 0: 'Start' }[cur] || 'Resume')
+  let action = $derived.by(() => {
+    if (running) return 'Pause'
+    if (cur === 0 && loop === 1) return 'Start'
+    if (cur === max && loop === loops) return 'Restart'
+    return 'Resume'
+  })
   let cssdir = $derived(dir ? 'direction: ltr' : 'direction: rtl')
   let status = $derived(running ? 'status status-accent' : 'status')
 
@@ -25,7 +33,7 @@
     if (running && cur >= max) {
       endSound.play()
       pause()
-      if (loop) {
+      if (looping) {
         click()
       }
     }
@@ -42,6 +50,7 @@
     }
     if (cur === max) {
       cur = 0
+      loop = loop === loops ? 1 : loop + 1
     }
     if (runnable) {
       resume()
@@ -55,11 +64,16 @@
 </script>
 
 <main class="flex flex-col text-white gap-4">
-  <div id="controls" class="w-full flex justify-evenly text-xs">
-    <label class="fieldset-label">
-      <input type="checkbox" bind:checked={loop} class="toggle toggle-xs" />
-      Loop: {loop ? 'on' : 'off'}
-    </label>
+  <LoopControls bind:loop bind:loops>
+    <button type="button" class="btn self-center" disabled={!runnable} onclick={click}>
+      {action}
+    </button>
+  </LoopControls>
+  <div id="controls" class="w-full flex justify-evenly text-xs hidden">
+    <!-- <label class="fieldset-label"> -->
+    <!--   <input type="checkbox" bind:checked={loop} class="toggle toggle-xs" /> -->
+    <!--   Loop: {loop ? 'on' : 'off'} -->
+    <!-- </label> -->
     <label class="fieldset-label">
       <input type="checkbox" bind:checked={dir} class="toggle toggle-xs" />
       Count: {dir ? 'up' : 'down'}
@@ -90,8 +104,5 @@
       {/if}
     </div>
   </div>
-  <button type="button" class="btn self-center" disabled={!runnable} onclick={click}>
-    {action}
-  </button>
 </main>
 <audio id="endSound" src="./beep.ogg"></audio>
