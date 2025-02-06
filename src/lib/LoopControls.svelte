@@ -1,15 +1,17 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
   import EditableNumber from './EditableNumber.svelte'
+  import StartStop from './StartStop.svelte'
 
   // FIXME: Also, we can't scroll down to Infinity anymore, since we can't go lower than `loop`...
 
   let {
+    time = $bindable([0, 1200]),
     loop = $bindable([1, Infinity]),
-    children,
+    onrunning = () => {},
   }: {
+    time: [current: number, goal: number]
     loop: [current: number, goal: number]
-    children: Snippet
+    onrunning: (running: boolean) => void
   } = $props()
 </script>
 
@@ -70,8 +72,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
     class="bg-base-100 pe-4"
     bind:value={() => loop[1], v => ((loop[1] = v), (loop[0] = Math.min(loop[0], loop[1])))}
   ></EditableNumber>
-  {@render children()}
-  <!-- <button class="btn join-item h-auto">Start</button> -->
+  <StartStop bind:time bind:loop {onrunning} />
   <button
     aria-label="Reset"
     class="btn join-item"

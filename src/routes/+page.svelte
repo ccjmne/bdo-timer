@@ -1,22 +1,17 @@
 <script lang="ts">
   import TimeInput from '../lib/TimeInput.svelte'
   import LoopControls from '$lib/LoopControls.svelte'
-  import StartStop from '$lib/StartStop.svelte'
 
   let time: [current: number, goal: number] = $state([0, 1200])
   let loop: [current: number, goal: number] = $state([1, Infinity])
   let running = $state(false)
-
   let dir = $state(true)
 
-  let cssdir = $derived(dir ? 'direction: ltr' : 'direction: rtl')
   let status = $derived(running ? 'status status-accent' : 'status')
 </script>
 
 <main class="flex flex-col text-white gap-4">
-  <LoopControls bind:loop>
-    <StartStop bind:time bind:loop onrunning={r => (running = r)} />
-  </LoopControls>
+  <LoopControls bind:time bind:loop onrunning={r => (running = r)}></LoopControls>
   <div id="controls" class="w-full flex justify-evenly text-xs">
     <!-- <label class="fieldset-label"> -->
     <!--   <input type="checkbox" bind:checked={loop} class="toggle toggle-xs" /> -->
@@ -33,7 +28,7 @@
     min={0}
     max={time[1]}
     class="range w-full"
-    style={cssdir}
+    style={dir ? 'direction: ltr' : 'direction: rtl'}
   />
   <div class="flex flex-col gap-2 sm:flex-row place-items-center w-full justify-between">
     <fieldset class="fieldset bg-base-200 border border-base-300 p-4 rounded-box relative">
