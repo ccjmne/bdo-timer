@@ -13,10 +13,6 @@
 <main class="flex flex-col text-white gap-4">
   <LoopControls bind:time bind:loop onrunning={r => (running = r)}></LoopControls>
   <div id="controls" class="w-full flex justify-evenly text-xs">
-    <!-- <label class="fieldset-label"> -->
-    <!--   <input type="checkbox" bind:checked={loop} class="toggle toggle-xs" /> -->
-    <!--   Loop: {loop ? 'on' : 'off'} -->
-    <!-- </label> -->
     <label class="fieldset-label">
       <input type="checkbox" bind:checked={dir} class="toggle toggle-xs" />
       Count: {dir ? 'up' : 'down'}
