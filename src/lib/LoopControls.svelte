@@ -51,10 +51,10 @@
   ></EditableNumber>
   <StartStop bind:time bind:loop {onrunning} />
   <button
-    aria-label="Reset"
+    aria-label="Rewind"
     class="btn join-item"
-    disabled={loop[0] === 1}
-    onclick={() => (loop[0] = 1)}
+    disabled={loop[0] === 1 && time[0] === 0}
+    onclick={() => ((loop[0] = 1), (time[0] = 0))}
   >
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
       <g
