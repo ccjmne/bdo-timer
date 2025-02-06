@@ -1,73 +1,23 @@
 <script lang="ts">
-  import { onDestroy, onMount } from 'svelte'
   import TimeInput from '../lib/TimeInput.svelte'
   import LoopControls from '$lib/LoopControls.svelte'
+  import StartStop from '$lib/StartStop.svelte'
 
   let cur = $state(0)
   let max = $state(1200)
-  let interval: number | null = $state(null)
-  let endSound: HTMLAudioElement
+  let running = $state(false)
 
   let loop = $state(1)
   let loops = $state(Infinity)
-  let looping = $derived(loop < loops)
   let dir = $state(true)
 
-  let runnable = $derived(max > 0)
-  let running = $derived(interval !== null)
-  let action = $derived.by(() => {
-    if (running) return 'Pause'
-    if (cur === 0 && loop === 1) return 'Start'
-    if (cur === max && loop === loops) return 'Restart'
-    return 'Resume'
-  })
   let cssdir = $derived(dir ? 'direction: ltr' : 'direction: rtl')
   let status = $derived(running ? 'status status-accent' : 'status')
-
-  function resume() {
-    clearInterval(interval!)
-    interval = setInterval(() => (cur = Math.min(max, cur + 1)), 1000)
-  }
-
-  $effect(() => {
-    if (running && cur >= max) {
-      endSound.play()
-      pause()
-      if (looping) {
-        click()
-      }
-    }
-  })
-
-  function pause() {
-    clearInterval(interval!)
-    interval = null
-  }
-
-  function click() {
-    if (running) {
-      return pause()
-    }
-    if (cur === max) {
-      cur = 0
-      loop = loop === loops ? 1 : loop + 1
-    }
-    if (runnable) {
-      resume()
-    }
-  }
-
-  onDestroy(pause)
-  onMount(() => {
-    endSound = document.querySelector('#endSound')!
-  })
 </script>
 
 <main class="flex flex-col text-white gap-4">
   <LoopControls bind:loop bind:loops>
-    <button type="button" class="btn self-center" disabled={!runnable} onclick={click}>
-      {action}
-    </button>
+    <StartStop bind:cur bind:max bind:loop bind:loops onrunning={r => (running = r)} />
   </LoopControls>
   <div id="controls" class="w-full flex justify-evenly text-xs">
     <!-- <label class="fieldset-label"> -->
@@ -105,4 +55,3 @@
     </div>
   </div>
 </main>
-<audio id="endSound" src="./beep.ogg"></audio>
