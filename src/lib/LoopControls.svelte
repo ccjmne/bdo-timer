@@ -59,17 +59,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
       >
     </button>
   </div>
-  <div class="join-item bg-base-100 ps-4 pe-2 muted relative top-[1px] flex place-items-center">
+  <div class="join-item bg-base-100 ps-4 muted relative top-[1px] flex place-items-center">
     Loop
   </div>
   <EditableNumber
     min={1}
-    class="bg-base-100"
+    class="bg-base-100 px-2"
     bind:value={() => loop[0], v => ((loop[0] = v), (loop[1] = Math.max(loop[0], loop[1])))}
   ></EditableNumber>
-  <div class="join-item bg-base-100 px-2 muted relative top-[1px] flex place-items-center">of</div>
+  <div class="join-item bg-base-100 muted relative top-[1px] flex place-items-center">of</div>
   <EditableNumber
-    class="bg-base-100 pe-4"
+    class="bg-base-100 ps-2 pe-4"
     bind:value={() => loop[1], v => ((loop[1] = v), (loop[0] = Math.min(loop[0], loop[1])))}
   ></EditableNumber>
   <StartStop bind:time bind:loop {onrunning} />
