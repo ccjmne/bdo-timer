@@ -5,18 +5,20 @@
   // FIXME: Also, we can't scroll down to Infinity anymore, since we can't go lower than `loop`...
 
   let {
-    loop = $bindable(1),
-    loops = $bindable(1),
+    loop = $bindable([1, Infinity]),
     children,
-  }: { loop: number; loops: number; children: Snippet } = $props()
+  }: {
+    loop: [current: number, goal: number]
+    children: Snippet
+  } = $props()
 </script>
 
 <div class="join">
   <div class="join-item flex flex-col">
     <button
-      aria-label={loops === 1 ? 'Repeat' : 'Do not repeat'}
+      aria-label={loop[1] === 1 ? 'Repeat' : 'Do not repeat'}
       class="btn join-item"
-      onclick={() => (loops = loops === loop ? Infinity : loop)}
+      onclick={() => (loop[1] = loop[1] === loop[0] ? Infinity : loop[0])}
     >
       <!--
 The SVG icons in this file were obtained from https://tabler.io/icons.
@@ -48,7 +50,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="2"
-          d={loops === loop
+          d={loop[1] === loop[0]
             ? 'M4 12V9a3 3 0 0 1 3-3h13m-3-3l3 3l-3 3m3 3v3a3 3 0 0 1-3 3H4m3 3l-3-3l3-3'
             : 'M4 12V9a3 3 0 0 1 2.08-2.856M10 6h10m-3-3l3 3l-3 3m3 3v3a3 3 0 0 1-.133.886m-1.99 1.984A3 3 0 0 1 17 18H4m3 3l-3-3l3-3M3 3l18 18'}
         /></svg
@@ -61,16 +63,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. -->
   <EditableNumber
     min={1}
     class="bg-base-100"
-    bind:value={() => loop, v => ((loop = v), (loops = Math.max(loop, loops)))}
+    bind:value={() => loop[0], v => ((loop[0] = v), (loop[1] = Math.max(loop[0], loop[1])))}
   ></EditableNumber>
   <div class="join-item bg-base-100 px-2 muted relative top-[1px] flex place-items-center">of</div>
   <EditableNumber
     class="bg-base-100 pe-4"
-    bind:value={() => loops, v => ((loops = v), (loop = Math.min(loop, loops)))}
+    bind:value={() => loop[1], v => ((loop[1] = v), (loop[0] = Math.min(loop[0], loop[1])))}
   ></EditableNumber>
   {@render children()}
   <!-- <button class="btn join-item h-auto">Start</button> -->
-  <button aria-label="Reset" class="btn join-item" disabled={loop === 1} onclick={() => (loop = 1)}>
+  <button
+    aria-label="Reset"
+    class="btn join-item"
+    disabled={loop[0] === 1}
+    onclick={() => (loop[0] = 1)}
+  >
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
       ><g
         class="icon-tabler"
