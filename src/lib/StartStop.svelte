@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte'
   import Icon from '@iconify/svelte'
 
   let {
@@ -15,7 +14,6 @@
   } = $props()
 
   let beep: HTMLAudioElement
-  let interval: number | null = $state(null)
   let runnable = $derived(time[1] > 0)
   let action = $derived.by(() => {
     if (running) return 'Pause'
@@ -24,36 +22,28 @@
     return 'Resume'
   })
 
-  $effect(() => {
-    if (running && time[0] >= time[1]) {
-      if (beeping) beep.play()
-      pause()
-      if (loop[0] < loop[1]) click()
-    }
-  })
-
-  function resume() {
-    clearInterval(interval!)
-    interval = setInterval(() => (time[0] = Math.min(time[1], time[0] + 1)), 1000)
-    running = true
+  function nexttick() {
+    if (!runnable) return
+    if (time[0] < time[1]) return (time[0] += 1)
+    if (beeping) beep.play()
+    if (loop[0] < loop[1]) nextloop()
+    else running = false
   }
 
-  function pause() {
-    clearInterval(interval!)
-    interval = null
-    running = false
+  function nextloop() {
+    time[0] = 0
+    loop[0] = loop[0] === loop[1] ? 1 : loop[0] + 1
   }
 
   function click() {
-    if (running) return pause()
-    if (time[0] === time[1]) {
-      time[0] = 0
-      loop[0] = loop[0] === loop[1] ? 1 : loop[0] + 1
-    }
-    if (runnable) resume()
+    if (time[0] === time[1]) nextloop()
+    running = !running
   }
 
-  onDestroy(pause)
+  $effect(() => {
+    let ival = running && setInterval(nexttick, 1000)
+    return () => clearInterval(ival as number)
+  })
 </script>
 
 <button type="button" class="btn grow" disabled={!runnable} onclick={click}>
