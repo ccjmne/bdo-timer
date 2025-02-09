@@ -1,6 +1,7 @@
 <script lang="ts">
   import TimeInput from '../lib/TimeInput.svelte'
   import LoopControls from '$lib/LoopControls.svelte'
+  import Icon from '@iconify/svelte'
 
   let time: [current: number, goal: number] = $state([0, 1200])
   let loop: [current: number, goal: number] = $state([1, Infinity])
@@ -10,12 +11,6 @@
 
 <main class="flex flex-col text-white gap-4">
   <LoopControls bind:time bind:loop onrunning={r => (running = r)}></LoopControls>
-  <div id="controls" class="w-full flex justify-evenly text-xs">
-    <label class="fieldset-label">
-      <input type="checkbox" bind:checked={dir} class="toggle toggle-xs" />
-      Count: {dir ? 'up' : 'down'}
-    </label>
-  </div>
   <input
     type="range"
     bind:value={time[0]}
@@ -25,20 +20,26 @@
     style={dir ? 'direction: ltr' : 'direction: rtl'}
   />
   <div class="flex flex-col gap-2 sm:flex-row place-items-center w-full justify-between">
-    <fieldset class="fieldset bg-base-200 border border-base-300 p-4 rounded-box relative">
-      {#if dir}
-        <legend class="fieldset-legend h-0">Elapsed</legend>
-        <TimeInput
-          bind:value={() => time[0], v => ((time[1] = Math.max(time[1], v)), (time[0] = v))}
-        />
-      {:else}
-        <legend class="fieldset-legend h-0">Remaining</legend>
-        <TimeInput
-          bind:value={() => time[1] - time[0],
-          v => ((time[1] = Math.max(time[1], v)), (time[0] = time[1] - v))}
-        />
-      {/if}
-    </fieldset>
+    <div class="grid place-items-center grid-cols-[auto_1fr] bg-base-100 rounded-sm shadow-sm">
+      <button class="btn btn-sm rounded-none rounded-tl-sm" onclick={() => (dir = !dir)}>
+        <Icon icon="ic:sharp-flip-camera-android" />
+      </button>
+      <span class="text-sm">{dir ? 'Elapsed' : 'Remaining'}</span>
+      <div class="py-2 px-8 relative rounded-b-sm col-span-2 border-t-gray-800 border-t-1">
+        <div class="flex place-items-center">
+          {#if dir}
+            <TimeInput
+              bind:value={() => time[0], v => ((time[1] = Math.max(time[1], v)), (time[0] = v))}
+            />
+          {:else}
+            <TimeInput
+              bind:value={() => time[1] - time[0],
+              v => ((time[1] = Math.max(time[1], v)), (time[0] = time[1] - v))}
+            />
+          {/if}
+        </div>
+      </div>
+    </div>
     <div class="divider sm:divider-horizontal text-xs m-0">of</div>
     <div class="flex flex-row place-items-center gap-4">
       {#if dir}
