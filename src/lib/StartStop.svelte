@@ -5,10 +5,12 @@
   let {
     time = $bindable([0, 1200]),
     loop = $bindable([1, Infinity]),
+    beep = true,
     onrunning = () => {},
   }: {
     time: [current: number, goal: number]
     loop: [current: number, goal: number]
+    beep?: boolean
     onrunning: (running: boolean) => void
   } = $props()
 
@@ -27,7 +29,7 @@
 
   $effect(() => {
     if (running && time[0] >= time[1]) {
-      endSound.play()
+      if (beep) endSound.play()
       pause()
       if (loop[0] < loop[1]) click()
     }
