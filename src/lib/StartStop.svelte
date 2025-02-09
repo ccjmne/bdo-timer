@@ -29,9 +29,7 @@
     if (running && time[0] >= time[1]) {
       endSound.play()
       pause()
-      if (loop[0] < loop[1]) {
-        click()
-      }
+      if (loop[0] < loop[1]) click()
     }
   })
 
@@ -48,16 +46,12 @@
   }
 
   function click() {
-    if (running) {
-      return pause()
-    }
+    if (running) return pause()
     if (time[0] === time[1]) {
       time[0] = 0
       loop[0] = loop[0] === loop[1] ? 1 : loop[0] + 1
     }
-    if (runnable) {
-      resume()
-    }
+    if (runnable) resume()
   }
 
   onDestroy(pause)
