@@ -5,20 +5,19 @@
   let {
     time = $bindable([0, 1200]),
     loop = $bindable([1, Infinity]),
-    beep = true,
-    onrunning = () => {},
+    running = $bindable(false),
+    beep,
   }: {
     time: [current: number, goal: number]
     loop: [current: number, goal: number]
-    beep?: boolean
-    onrunning: (running: boolean) => void
+    running: boolean
+    beep: boolean
   } = $props()
 
   let interval: number | null = $state(null)
   let endSound: HTMLAudioElement
 
   let runnable = $derived(time[1] > 0)
-  let running = $derived(interval !== null)
 
   let action = $derived.by(() => {
     if (running) return 'Pause'
@@ -38,13 +37,13 @@
   function resume() {
     clearInterval(interval!)
     interval = setInterval(() => (time[0] = Math.min(time[1], time[0] + 1)), 1000)
-    onrunning(running)
+    running = true
   }
 
   function pause() {
     clearInterval(interval!)
     interval = null
-    onrunning(running)
+    running = false
   }
 
   function click() {
