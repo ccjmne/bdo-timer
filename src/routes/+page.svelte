@@ -11,14 +11,7 @@
 
 <main class="flex flex-col text-white gap-4">
   <LoopControls bind:time bind:loop onrunning={r => (running = r)}></LoopControls>
-  <input
-    type="range"
-    bind:value={time[0]}
-    min={0}
-    max={time[1]}
-    class="range w-full"
-    style={dir ? 'direction: ltr' : 'direction: rtl'}
-  />
+  <input type="range" bind:value={time[0]} min={0} max={time[1]} class="range w-full" />
   <div class="flex flex-col gap-2 sm:flex-row place-items-center w-full justify-between">
     <div class="grid place-items-center grid-cols-[auto_1fr] bg-base-100 rounded-sm shadow-sm">
       <button class="btn btn-sm rounded-none rounded-tl-sm" onclick={() => (dir = !dir)}>
