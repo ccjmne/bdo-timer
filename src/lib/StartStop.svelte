@@ -5,12 +5,12 @@
     time = $bindable([0, 1200]),
     loop = $bindable([1, Infinity]),
     running = $bindable(false),
-    beep: beeping,
+    beeping,
   }: {
     time: [current: number, goal: number]
     loop: [current: number, goal: number]
     running: boolean
-    beep: boolean
+    beeping: boolean
   } = $props()
 
   let beep: HTMLAudioElement

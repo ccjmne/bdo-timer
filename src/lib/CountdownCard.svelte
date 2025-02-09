@@ -6,12 +6,12 @@
   let {
     time = $bindable([0, 1200]),
     dir = $bindable(true),
-    beep = $bindable(true),
+    beeping = $bindable(true),
     running,
   }: {
     time: [current: number, goal: number]
     dir: boolean
-    beep: boolean
+    beeping: boolean
     running: boolean
   } = $props()
 </script>
@@ -65,8 +65,8 @@
       {/if}
     </div>
   </div>
-  <button class="btn btn-md rounded-bl-sm h-full join-item" onclick={() => (beep = !beep)}>
-    <label class="swap {beep ? 'swap-active' : ''}">
+  <button class="btn btn-md rounded-bl-sm h-full join-item" onclick={() => (beeping = !beeping)}>
+    <label class="swap {beeping ? 'swap-active' : ''}">
       <Icon class="swap-on" icon="mdi:music-note" />
       <Icon class="swap-off" icon="mdi:music-note-off" />
     </label>

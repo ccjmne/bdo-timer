@@ -7,12 +7,12 @@
     time = $bindable([0, 1200]),
     loop = $bindable([1, Infinity]),
     running = $bindable(false),
-    beep = true,
+    beeping = true,
   }: {
     time: [current: number, goal: number]
     loop: [current: number, goal: number]
     running: boolean
-    beep: boolean
+    beeping: boolean
   } = $props()
 
   let last = $derived(loop[0] === loop[1])
@@ -47,7 +47,7 @@
       bind:value={() => loop[1], v => ((loop[1] = v), (loop[0] = Math.min(loop[0], loop[1])))}
     ></EditableNumber>
   </div>
-  <StartStop bind:time bind:loop bind:running {beep} />
+  <StartStop bind:time bind:loop bind:running {beeping} />
   <button
     aria-label="Rewind"
     class="btn join-item"
