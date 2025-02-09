@@ -16,7 +16,7 @@
   let last = $derived(loop[0] === loop[1])
 </script>
 
-<div class="join">
+<div class="join w-full">
   <div class="join-item flex flex-col">
     <button
       aria-label={last ? 'Repeat' : 'Do not repeat'}

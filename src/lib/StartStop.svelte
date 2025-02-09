@@ -66,7 +66,7 @@
   })
 </script>
 
-<button type="button" class="btn self-center" disabled={!runnable} onclick={click}>
+<button type="button" class="btn grow" disabled={!runnable} onclick={click}>
   {#if action === 'Start'}
     <Icon icon="mdi:play" />
   {:else if action === 'Resume'}
