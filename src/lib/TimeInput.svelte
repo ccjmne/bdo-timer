@@ -19,7 +19,7 @@
 </script>
 
 <div class="grid grid-cols-3 gap-0.75 text-center">
-  <EditableNumber bind:value={() => hours, setHours}>hours</EditableNumber>
-  <EditableNumber bind:value={() => minutes, setMinutes}>minutes</EditableNumber>
-  <EditableNumber bind:value={() => seconds, setSeconds}>seconds</EditableNumber>
+  <EditableNumber class="min-w-[3ch]" bind:value={() => hours, setHours}>h</EditableNumber>
+  <EditableNumber class="min-w-[3ch]" bind:value={() => minutes, setMinutes}>m</EditableNumber>
+  <EditableNumber class="min-w-[3ch]" bind:value={() => seconds, setSeconds}>s</EditableNumber>
 </div>
