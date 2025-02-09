@@ -1,5 +1,8 @@
 <script lang="ts">
-  import Icon from '@iconify/svelte'
+  import Play from '~icons/mdi/play'
+  import Pause from '~icons/mdi/pause'
+  import Forward from '~icons/mdi/step-forward'
+  import Backward from '~icons/mdi/step-backward'
 
   let {
     time = $bindable([0, 1200]),
@@ -48,13 +51,13 @@
 
 <button type="button" class="btn grow" disabled={!runnable} onclick={click}>
   {#if action === 'Start'}
-    <Icon icon="mdi:play" />
+    <Play />
   {:else if action === 'Resume'}
-    <Icon icon="mdi:step-forward" />
+    <Forward />
   {:else if action === 'Pause'}
-    <Icon icon="mdi:pause" />
+    <Pause />
   {:else if action === 'Restart'}
-    <Icon icon="mdi:step-backward" />
+    <Backward />
   {/if}
   {action}
 </button>

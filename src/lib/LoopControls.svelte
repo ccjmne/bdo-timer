@@ -1,5 +1,7 @@
 <script lang="ts">
-  import Icon from '@iconify/svelte'
+  import Repeat from '~icons/mdi/repeat'
+  import NoRepeat from '~icons/mdi/repeat-off'
+  import Rewind from '~icons/mdi/rewind'
   import EditableNumber from './EditableNumber.svelte'
   import StartStop from './StartStop.svelte'
 
@@ -26,8 +28,8 @@
       onclick={() => (loop[1] = last ? Infinity : loop[0])}
     >
       <div class="swap {last ? 'swap-active' : ''}">
-        <Icon class="swap-on" icon="mdi:repeat-off" />
-        <Icon class="swap-off" icon="mdi:repeat" />
+        <Repeat class="swap-off" />
+        <NoRepeat class="swap-on" />
       </div>
     </button>
   </div>
@@ -54,6 +56,6 @@
     disabled={loop[0] === 1 && time[0] === 0}
     onclick={() => ((loop[0] = 1), (time[0] = 0))}
   >
-    <Icon icon="mdi:rewind" />
+    <Rewind />
   </button>
 </div>

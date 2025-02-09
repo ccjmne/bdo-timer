@@ -1,7 +1,10 @@
 <script lang="ts">
-  // TODO: Look into offline version
-  import Icon from '@iconify/svelte'
   import TimeInput from './TimeInput.svelte'
+
+  import Beep from '~icons/mdi/music-note'
+  import NoBeep from '~icons/mdi/music-note-off'
+  import Up from '~icons/mdi/chevron-double-up'
+  import Down from '~icons/mdi/chevron-double-down'
 
   let {
     time = $bindable([0, 1200]),
@@ -21,8 +24,8 @@
 >
   <button class="btn btn-md h-full join-item" onclick={() => (dir = !dir)}>
     <label class="swap swap-rotate {dir ? 'swap-active' : ''}">
-      <Icon class="swap-on" icon="ic:baseline-keyboard-double-arrow-up" />
-      <Icon class="swap-off" icon="ic:baseline-keyboard-double-arrow-down" />
+      <Up class="swap-on" />
+      <Down class="swap-off" />
     </label>
   </button>
   <div
@@ -67,8 +70,8 @@
   </div>
   <button class="btn btn-md rounded-bl-sm h-full join-item" onclick={() => (beeping = !beeping)}>
     <label class="swap {beeping ? 'swap-active' : ''}">
-      <Icon class="swap-on" icon="mdi:music-note" />
-      <Icon class="swap-off" icon="mdi:music-note-off" />
+      <Beep class="swap-on" />
+      <NoBeep class="swap-off" />
     </label>
   </button>
 </div>
