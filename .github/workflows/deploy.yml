@@ -22,6 +22,9 @@ jobs:
           node-version: 20
           cache: pnpm
 
+      - name: Install woff2 utilities
+        run: sudo apt-get install -y woff2
+
       - name: Install dependencies
         run: pnpm install
 
