@@ -26,6 +26,17 @@
       <div
         class="p-2 relative row-span-2 rounded-e-sm border-[#8882] border-t-1 border-r-0 w-full shadow-sm"
       >
+        <div
+          class="flex justify-evenly absolute inset-0 pointer-events-none overflow-hidden max-sm:[&>:nth-child(-n+12)]:hidden"
+        >
+          {#each Array(24)}
+            <div
+              class="w-[1px] before:absolute before:w-[1px] bg-[#8882] line
+                {dir ? 'line-reverse' : ''} before:opacity-{running ? 100 : 0}"
+              style="--delay: {Math.random() * 2}s;"
+            ></div>
+          {/each}
+        </div>
         <div class="flex justify-evenly items-center w-full max-sm:flex-col">
           {#if dir}
             <TimeInput
@@ -61,3 +72,29 @@
     </div>
   </div>
 </main>
+
+<style>
+  .line {
+    &::before {
+      transition: opacity 0.5s;
+      background: linear-gradient(to bottom, #8880 0%, #888a 100%);
+      animation: drop 2s var(--delay) infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    &.line-reverse::before {
+      background: linear-gradient(to top, #8880 0%, #888a 100%);
+      animation-direction: reverse;
+    }
+  }
+
+  @keyframes drop {
+    from {
+      bottom: 100%;
+      height: 50%;
+    }
+    to {
+      bottom: -5%;
+      height: 5%;
+    }
+  }
+</style>
