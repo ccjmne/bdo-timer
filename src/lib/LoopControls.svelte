@@ -49,7 +49,7 @@
     disabled={loop[0] === 1 && time[0] === 0}
     onclick={() => ((loop[0] = 1), (time[0] = 0))}
   >
-    <Icon icon="mdi:keyboard-return" />
+    <Icon icon="mdi:rewind" />
   </button>
 </div>
 
