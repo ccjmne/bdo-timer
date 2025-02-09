@@ -54,15 +54,3 @@
     <Icon icon="mdi:rewind" />
   </button>
 </div>
-
-<style>
-  svg {
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2;
-    width: 1em;
-    height: 1em;
-  }
-</style>
