@@ -6,8 +6,6 @@
   let loop: [current: number, goal: number] = $state([1, Infinity])
   let running = $state(false)
   let dir = $state(true)
-
-  let status = $derived(running ? 'status status-accent' : 'status')
 </script>
 
 <main class="flex flex-col text-white gap-4">
@@ -28,10 +26,6 @@
   />
   <div class="flex flex-col gap-2 sm:flex-row place-items-center w-full justify-between">
     <fieldset class="fieldset bg-base-200 border border-base-300 p-4 rounded-box relative">
-      {#if running}
-        <div class="absolute right-1.5 top-0.5 {status} animate-ping"></div>
-      {/if}
-      <div class="absolute right-1.5 top-0.5 {status}"></div>
       {#if dir}
         <legend class="fieldset-legend h-0">Elapsed</legend>
         <TimeInput
