@@ -11,7 +11,14 @@
 
 <main class="flex flex-col text-white gap-4">
   <LoopControls bind:time bind:loop bind:running {beep}></LoopControls>
-  <input type="range" bind:value={time[0]} min={0} max={time[1]} class="range w-full" />
+  <input
+    type="range"
+    bind:value={time[0]}
+    min={0}
+    max={time[1]}
+    class="range w-full"
+    oninput={() => (running = false)}
+  />
   <div class="flex flex-col gap-2 sm:flex-row place-items-center w-full justify-between">
     <CountdownCard bind:time bind:dir bind:beep {running} />
   </div>
