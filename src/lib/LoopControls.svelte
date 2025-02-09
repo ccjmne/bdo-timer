@@ -6,10 +6,12 @@
   let {
     time = $bindable([0, 1200]),
     loop = $bindable([1, Infinity]),
+    beep = true,
     onrunning = () => {},
   }: {
     time: [current: number, goal: number]
     loop: [current: number, goal: number]
+    beep?: boolean
     onrunning: (running: boolean) => void
   } = $props()
 
@@ -42,7 +44,7 @@
       bind:value={() => loop[1], v => ((loop[1] = v), (loop[0] = Math.min(loop[0], loop[1])))}
     ></EditableNumber>
   </div>
-  <StartStop bind:time bind:loop {onrunning} />
+  <StartStop bind:time bind:loop {beep} {onrunning} />
   <button
     aria-label="Rewind"
     class="btn join-item"
