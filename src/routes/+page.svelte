@@ -39,9 +39,8 @@
         />
       {/if}
     </fieldset>
-    <span class="muted text-sm max-sm:hidden">of</span>
+    <div class="divider sm:divider-horizontal text-xs m-0">of</div>
     <div class="flex flex-row place-items-center gap-4">
-      <span class="muted text-sm sm:hidden">of</span>
       {#if dir}
         <TimeInput
           bind:value={() => time[1], v => ((time[1] = v), (time[0] = Math.min(v, time[0])))}
