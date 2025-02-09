@@ -1,7 +1,13 @@
 <script lang="ts">
   import EditableNumber from './EditableNumber.svelte'
 
-  let { value = $bindable(1200) } = $props()
+  let {
+    value = $bindable(1200),
+    label,
+  }: {
+    value: number
+    label?: string
+  } = $props()
 
   let hours = $derived(Math.floor(value / 3600))
   let minutes = $derived(Math.floor((value % 3600) / 60))
@@ -18,8 +24,17 @@
   }
 </script>
 
-<div class="grid grid-cols-3 gap-0.75 text-center">
-  <EditableNumber bind:value={() => hours, setHours}>hours</EditableNumber>
-  <EditableNumber bind:value={() => minutes, setMinutes}>minutes</EditableNumber>
-  <EditableNumber bind:value={() => seconds, setSeconds}>seconds</EditableNumber>
+<div class="grid grid-cols-3 gap-0-0.75">
+  {#if label}
+    <EditableNumber class="min-w-[3.5ch]" bind:value={() => hours, setHours}></EditableNumber>
+    <EditableNumber class="min-w-[3.5ch]" bind:value={() => minutes, setMinutes}></EditableNumber>
+    <EditableNumber class="min-w-[3.5ch]" bind:value={() => seconds, setSeconds}></EditableNumber>
+    <span class="text-center muted col-span-3" style="font-size: 16px;">
+      {label}
+    </span>
+  {:else}
+    <EditableNumber class="min-w-[3.5ch]" bind:value={() => hours, setHours}>h</EditableNumber>
+    <EditableNumber class="min-w-[3.5ch]" bind:value={() => minutes, setMinutes}>m</EditableNumber>
+    <EditableNumber class="min-w-[3.5ch]" bind:value={() => seconds, setSeconds}>s</EditableNumber>
+  {/if}
 </div>
