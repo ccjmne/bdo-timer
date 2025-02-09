@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte'
+  import Icon from '@iconify/svelte'
 
   let {
     time = $bindable([0, 1200]),
@@ -66,6 +67,15 @@
 </script>
 
 <button type="button" class="btn self-center" disabled={!runnable} onclick={click}>
+  {#if action === 'Start'}
+    <Icon icon="mdi:play" />
+  {:else if action === 'Resume'}
+    <Icon icon="mdi:step-forward" />
+  {:else if action === 'Pause'}
+    <Icon icon="mdi:pause" />
+  {:else if action === 'Restart'}
+    <Icon icon="mdi:step-backward" />
+  {/if}
   {action}
 </button>
 <audio id="endSound" src="./beep.ogg"></audio>
