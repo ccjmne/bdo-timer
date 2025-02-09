@@ -34,7 +34,7 @@
       {#each Array(24)}
         <div
           class="w-[1px] before:absolute before:w-[1px] bg-[#8882] line
-                {dir ? 'line-reverse' : ''} before:opacity-{running ? 100 : 0}"
+                {dir ? 'line-reverse' : ''} {running ? 'before:opacity-100' : 'before:opacity-0'}"
           style="--delay: {Math.random() * 2}s;"
         ></div>
       {/each}
