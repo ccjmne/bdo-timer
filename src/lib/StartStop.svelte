@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { onDestroy, onMount } from 'svelte'
+  import { onDestroy } from 'svelte'
   import Icon from '@iconify/svelte'
 
   let {
     time = $bindable([0, 1200]),
     loop = $bindable([1, Infinity]),
     running = $bindable(false),
-    beep,
+    beep: beeping,
   }: {
     time: [current: number, goal: number]
     loop: [current: number, goal: number]
@@ -14,11 +14,9 @@
     beep: boolean
   } = $props()
 
+  let beep: HTMLAudioElement
   let interval: number | null = $state(null)
-  let endSound: HTMLAudioElement
-
   let runnable = $derived(time[1] > 0)
-
   let action = $derived.by(() => {
     if (running) return 'Pause'
     if (time[0] === 0 && loop[0] === 1) return 'Start'
@@ -28,7 +26,7 @@
 
   $effect(() => {
     if (running && time[0] >= time[1]) {
-      if (beep) endSound.play()
+      if (beeping) beep.play()
       pause()
       if (loop[0] < loop[1]) click()
     }
@@ -56,9 +54,6 @@
   }
 
   onDestroy(pause)
-  onMount(() => {
-    endSound = document.querySelector('#endSound')!
-  })
 </script>
 
 <button type="button" class="btn grow" disabled={!runnable} onclick={click}>
@@ -73,4 +68,4 @@
   {/if}
   {action}
 </button>
-<audio id="endSound" src="./beep.ogg"></audio>
+<audio bind:this={beep} src="./beep.ogg"></audio>
