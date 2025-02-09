@@ -33,7 +33,8 @@
 </script>
 
 <div
-  class="{cls} text-xl text-center flex flex-col place-content-center container"
+  class="{cls} text-xl text-center flex flex-col place-content-center"
+  style:font-family="Syne,Outfit,sans-serif"
   onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
 >
   <div
@@ -61,10 +62,6 @@
     src: url('/outfit.woff2') format('woff2');
     font-weight: 400;
     font-display: swap;
-  }
-
-  .container {
-    font-family: 'Syne', 'Outfit', sans-serif;
   }
 
   label {
