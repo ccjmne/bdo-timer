@@ -8,7 +8,7 @@
 </svelte:head>
 
 <main class="flex w-screen h-screen place-items-center place-content-center bg-gray-800">
-  <div class="w-[90vw] sm:w-2xs">
+  <div class="w-[90vw] lg:w-sm">
     <slot />
   </div>
 </main>
