@@ -25,7 +25,10 @@
       class="btn join-item"
       onclick={() => (loop[1] = last ? Infinity : loop[0])}
     >
-      <Icon icon={last ? 'mdi:repeat' : 'mdi:repeat-off'} />
+      <div class="swap {last ? 'swap-active' : ''}">
+        <Icon class="swap-on" icon="mdi:repeat-off" />
+        <Icon class="swap-off" icon="mdi:repeat" />
+      </div>
     </button>
   </div>
   <div
