@@ -27,10 +27,12 @@
 
   function nexttick() {
     if (!runnable) return
-    if (time[0] < time[1]) return (time[0] += 1)
-    if (beeping) beep.play()
-    if (loop[0] < loop[1]) nextloop()
-    else running = false
+    if (time[0] < time[1]) time[0] += 1
+    if (time[0] === time[1]) {
+      if (beeping) beep.play()
+      if (loop[0] < loop[1]) nextloop()
+      else running = false
+    }
   }
 
   function nextloop() {
