@@ -17,6 +17,25 @@
     beeping: boolean
     running: boolean
   } = $props()
+
+  function getCurrent() {
+    return dir ? time[0] : time[1] - time[0]
+  }
+
+  function updateCurrent(v: number) {
+    time[1] = Math.max(time[1], v)
+    time[0] = dir ? v : time[1] - v
+  }
+
+  function updateTotal(v: number) {
+    if (dir) {
+      time[1] = v
+      time[0] = Math.min(v, time[0])
+    } else {
+      time[0] = Math.max(0, time[0] + v - time[1])
+      time[1] = v
+    }
+  }
 </script>
 
 <div
@@ -48,29 +67,9 @@
       {/each}
     </div>
     <div class="flex justify-evenly items-center w-full max-sm:flex-col">
-      {#if dir}
-        <TimeInput
-          label="Elapsed"
-          bind:value={() => time[0], v => ((time[1] = Math.max(time[1], v)), (time[0] = v))}
-        />
-      {:else}
-        <TimeInput
-          label="Remaining"
-          bind:value={() => time[1] - time[0],
-          v => ((time[1] = Math.max(time[1], v)), (time[0] = time[1] - v))}
-        />
-      {/if}
+      <TimeInput label={dir ? 'Elapsed' : 'Remaining'} bind:value={getCurrent, updateCurrent} />
       <div class="divider sm:divider-horizontal text-xs m-0 muted">of</div>
-      {#if dir}
-        <TimeInput
-          bind:value={() => time[1], v => ((time[1] = v), (time[0] = Math.min(v, time[0])))}
-        />
-      {:else}
-        <TimeInput
-          bind:value={() => time[1],
-          v => ((time[0] = Math.max(0, time[0] + v - time[1])), (time[1] = v))}
-        />
-      {/if}
+      <TimeInput bind:value={() => time[1], updateTotal} />
     </div>
   </div>
   <button class="btn btn-md rounded-bl-sm h-full join-item" onclick={() => (beeping = !beeping)}>
