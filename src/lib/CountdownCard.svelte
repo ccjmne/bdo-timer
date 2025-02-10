@@ -29,7 +29,7 @@
     </label>
   </button>
   <div
-    class="p-2 relative row-span-2 rounded-e-sm border-[#8882] border-t-1 border-r-0 w-full shadow-sm"
+    class="p-2 relative row-span-2 rounded-e-sm border-[#8882] border-t-1 border-r-0 w-full shadow-md"
   >
     <div
       class="flex justify-evenly absolute inset-0 pointer-events-none overflow-hidden max-sm:[&>:nth-child(-n+12)]:hidden"
