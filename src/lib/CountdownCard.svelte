@@ -34,12 +34,17 @@
     <div
       class="flex justify-evenly absolute inset-0 pointer-events-none overflow-hidden max-sm:[&>:nth-child(-n+12)]:hidden"
     >
-      {#each Array(24)}
-        <div
-          class="w-[1px] before:absolute before:w-[1px] bg-[#8882] line
-                {dir ? 'line-reverse' : ''} {running ? 'before:opacity-100' : 'before:opacity-0'}"
-          style="--delay: {Math.random() * 2}s;"
-        ></div>
+      {#each [...Array(24).keys()].map(() => Math.random() * 2 + 's') as delay}
+        <div class="w-[1px] bg-[#8882]">
+          <div
+            style:animation-delay={delay}
+            class={[
+              'absolute w-[1px] transition-opacity duration-500 animate-fall bg-linear-to-b from-[#8880] to-[#888a]',
+              !running && 'opacity-0',
+              dir && 'bg-linear-to-t animate-reverse',
+            ]}
+          ></div>
+        </div>
       {/each}
     </div>
     <div class="flex justify-evenly items-center w-full max-sm:flex-col">
@@ -75,29 +80,3 @@
     </label>
   </button>
 </div>
-
-<style>
-  .line {
-    &::before {
-      transition: opacity 0.5s;
-      background: linear-gradient(to bottom, #8880 0%, #888a 100%);
-      animation: drop 2s var(--delay) infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    &.line-reverse::before {
-      background: linear-gradient(to top, #8880 0%, #888a 100%);
-      animation-direction: reverse;
-    }
-  }
-
-  @keyframes drop {
-    from {
-      bottom: 100%;
-      height: 50%;
-    }
-    to {
-      bottom: -5%;
-      height: 5%;
-    }
-  }
-</style>
