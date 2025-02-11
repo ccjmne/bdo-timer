@@ -1,11 +1,8 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte'
   import EditableNumber from './EditableNumber.svelte'
 
-  let {
-    value = $bindable(1200),
-    label,
-    class: cls,
-  }: { value: number; label?: string; class?: string } = $props()
+  let { value = $bindable(1200), children: labels }: { value: number; children: Snippet } = $props()
 
   let hours = $derived(Math.floor(value / 3600))
   let minutes = $derived(Math.floor((value % 3600) / 60))
@@ -22,13 +19,9 @@
   }
 </script>
 
-<div class={[cls, 'grid grid-cols-3 place-items-center']}>
+<div class={['grid grid-cols-3 text-center [&>:nth-child(n+4)]:text-xs [&>:nth-child(n+4)]:muted']}>
   <EditableNumber class="min-w-8" bind:value={() => hours, setHours}></EditableNumber>
   <EditableNumber class="min-w-8" bind:value={() => minutes, setMinutes}></EditableNumber>
   <EditableNumber class="min-w-8" bind:value={() => seconds, setSeconds}></EditableNumber>
-  {#if label}
-    <span class="label text-xs muted col-span-full">{label}</span>
-  {:else}
-    {#each [...'hms'] as l}<span class="label text-xs muted">{l}</span>{/each}
-  {/if}
+  {@render labels()}
 </div>

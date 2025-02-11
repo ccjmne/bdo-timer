@@ -54,7 +54,7 @@
   <div class="relative isolate rounded-e-sm bg-base-100 shadow-md row-span-full">
     <div class="flex justify-evenly absolute inset-0 z-[-1] overflow-hidden">
       {#each [...Array(24).keys()].map(() => Math.random() * 2 + 's') as delay}
-        <div class="w-[1px] bg-[#8882] max-sm:[&:nth-child(-n+10)]:hidden">
+        <div class="w-[1px] bg-[#8882] max-sm:[:nth-child(-n+10)]:hidden">
           <div
             style:animation-delay={delay}
             class={[
@@ -67,13 +67,13 @@
       {/each}
     </div>
     <div class="p-2 flex justify-evenly items-center w-full max-sm:flex-col">
-      <TimeInput
-        label={dir ? 'Elapsed' : 'Remaining'}
-        bind:value={getCurrent, updateCurrent}
-        class="max-sm:[&>.label]:row-start-1"
-      />
+      <TimeInput bind:value={getCurrent, updateCurrent}>
+        <span class="max-sm:row-start-1 col-span-full">{dir ? 'Elapsed' : 'Remaining'}</span>
+      </TimeInput>
       <div class="divider sm:divider-horizontal text-xs m-0 muted">of</div>
-      <TimeInput bind:value={() => time[1], updateTotal} />
+      <TimeInput bind:value={() => time[1], updateTotal}>
+        {#each [...'hms'] as l}<span>{l}</span>{/each}
+      </TimeInput>
     </div>
   </div>
 </div>
