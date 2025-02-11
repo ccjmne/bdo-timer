@@ -38,23 +38,25 @@
   }
 </script>
 
-<div
-  class="grid place-items-center join grid-cols-[auto_1fr] grid-rows-[1fr_1fr] bg-base-100 rounded-sm w-full"
->
-  <button class="btn btn-md h-full join-item" onclick={() => (dir = !dir)}>
-    <label class="swap swap-rotate {dir ? 'swap-active' : ''}">
+<div class="grid w-full [grid-template-areas:'dir_main''beep_main'] grid-cols-[auto_1fr]">
+  <button class="btn btn-md rounded-tl-md h-full [grid-area:dir]" onclick={() => (dir = !dir)}>
+    <label class={['swap swap-rotate', { 'swap-active': dir }]}>
       <Up class="swap-on" />
       <Down class="swap-off" />
     </label>
   </button>
+  <button class="btn btn-md rounded-bl-md h-full" onclick={() => (beeping = !beeping)}>
+    <label class={['swap', { 'swap-active': beeping }]}>
+      <Beep class="swap-on" />
+      <NoBeep class="swap-off" />
+    </label>
+  </button>
   <div
-    class="p-2 relative row-span-2 rounded-e-sm border-[#8882] border-t-1 border-r-0 w-full shadow-md"
+    class="relative rounded-e-sm bg-base-100 border-[#8882] border-t-1 border-r-0 w-full shadow-md [grid-area:main] overflow-hidden"
   >
-    <div
-      class="flex justify-evenly absolute inset-0 pointer-events-none overflow-hidden max-sm:[&>:nth-child(-n+12)]:hidden"
-    >
+    <div class="flex justify-evenly absolute inset-0 pointer-events-none">
       {#each [...Array(24).keys()].map(() => Math.random() * 2 + 's') as delay}
-        <div class="w-[1px] bg-[#8882]">
+        <div class="w-[1px] bg-[#8882] max-sm:[&:nth-child(-n+10)]:hidden">
           <div
             style:animation-delay={delay}
             class={[
@@ -66,16 +68,10 @@
         </div>
       {/each}
     </div>
-    <div class="flex justify-evenly items-center w-full max-sm:flex-col">
+    <div class="p-2 flex justify-evenly items-center w-full max-sm:flex-col">
       <TimeInput label={dir ? 'Elapsed' : 'Remaining'} bind:value={getCurrent, updateCurrent} />
       <div class="divider sm:divider-horizontal text-xs m-0 muted">of</div>
       <TimeInput bind:value={() => time[1], updateTotal} />
     </div>
   </div>
-  <button class="btn btn-md rounded-bl-sm h-full join-item" onclick={() => (beeping = !beeping)}>
-    <label class="swap {beeping ? 'swap-active' : ''}">
-      <Beep class="swap-on" />
-      <NoBeep class="swap-off" />
-    </label>
-  </button>
 </div>
