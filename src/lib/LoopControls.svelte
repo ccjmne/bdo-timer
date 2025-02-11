@@ -1,9 +1,10 @@
 <script lang="ts">
-  import Repeat from '~icons/mdi/repeat'
-  import NoRepeat from '~icons/mdi/repeat-off'
-  import Rewind from '~icons/mdi/rewind'
   import EditableNumber from './EditableNumber.svelte'
   import StartStop from './StartStop.svelte'
+
+  import Loop from '~icons/mdi/repeat'
+  import NoLoop from '~icons/mdi/repeat-off'
+  import Rewind from '~icons/mdi/rewind'
 
   let {
     time = $bindable([0, 1200]),
@@ -27,16 +28,13 @@
       class="btn join-item"
       onclick={() => (loop[1] = last ? Infinity : loop[0])}
     >
-      <div class="swap {last ? 'swap-active' : ''}">
-        <Repeat class="swap-off" />
-        <NoRepeat class="swap-on" />
+      <div class={['swap', { 'swap-active': last }]}>
+        <Loop class="swap-off" />
+        <NoLoop class="swap-on" />
       </div>
     </button>
   </div>
-  <div
-    class="join-item flex flex-row"
-    style="box-shadow:  oklch(1 0 0 / 0.06) 0px 0.5px 0px 0.5px inset, oklab(0.2326 -0.00406983 -0.0133954 / 0.3) 0px 3px 2px -2px, oklab(0.2326 -0.00406983 -0.0133954 / 0.3) 0px 4px 3px -2px"
-  >
+  <div class="join-item flex flex-row">
     <div class="bg-base-100 ps-4 muted relative flex place-items-center">Loop</div>
     <EditableNumber
       min={1}
