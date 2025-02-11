@@ -24,17 +24,11 @@
   }
 </script>
 
-<div class="grid grid-cols-3 gap-0-0.75">
-  {#if label}
-    <EditableNumber class="min-w-[3.5ch]" bind:value={() => hours, setHours}></EditableNumber>
-    <EditableNumber class="min-w-[3.5ch]" bind:value={() => minutes, setMinutes}></EditableNumber>
-    <EditableNumber class="min-w-[3.5ch]" bind:value={() => seconds, setSeconds}></EditableNumber>
-    <span class="text-center muted col-span-3" style="font-size: 16px;">
-      {label}
-    </span>
-  {:else}
-    <EditableNumber class="min-w-[3.5ch]" bind:value={() => hours, setHours}>h</EditableNumber>
-    <EditableNumber class="min-w-[3.5ch]" bind:value={() => minutes, setMinutes}>m</EditableNumber>
-    <EditableNumber class="min-w-[3.5ch]" bind:value={() => seconds, setSeconds}>s</EditableNumber>
-  {/if}
+<div class="grid grid-cols-3 text-center">
+  <EditableNumber class="min-w-8" bind:value={() => hours, setHours}></EditableNumber>
+  <EditableNumber class="min-w-8" bind:value={() => minutes, setMinutes}></EditableNumber>
+  <EditableNumber class="min-w-8" bind:value={() => seconds, setSeconds}></EditableNumber>
+  {#each label ? [label] : [...'hms'] as l}
+    <span class={['text-xs muted', label && 'col-span-full']}>{l}</span>
+  {/each}
 </div>

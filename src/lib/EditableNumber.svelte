@@ -1,13 +1,10 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte'
-
   let {
     value = $bindable(0),
     min = -Infinity,
     max = Infinity,
-    children,
     class: cls,
-  }: { value: number; min?: number; max?: number; children?: Snippet; class?: string } = $props()
+  }: { value: number; min?: number; max?: number; class?: string } = $props()
 
   $effect(() => {
     if (value < min) value = min
@@ -41,7 +38,7 @@
 </script>
 
 <div
-  class="{cls} text-xl text-center flex flex-col place-content-center"
+  class={[cls, 'text-xl text-center flex flex-col place-content-center']}
   style:font-family="Syne,Outfit,sans-serif"
   onwheel={({ deltaY }) => (value -= Math.sign(deltaY))}
 >
@@ -52,9 +49,6 @@
     {onfocus}
     {onkeydown}
   ></div>
-  {#if children}
-    <label class="block text-center muted">{@render children()}</label>
-  {/if}
 </div>
 
 <style>
@@ -70,9 +64,5 @@
     src: url('/outfit.woff2') format('woff2');
     font-weight: 400;
     font-display: swap;
-  }
-
-  label {
-    font-size: 0.4em;
   }
 </style>
