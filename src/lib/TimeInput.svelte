@@ -4,10 +4,8 @@
   let {
     value = $bindable(1200),
     label,
-  }: {
-    value: number
-    label?: string
-  } = $props()
+    'label-top': labelTop = false,
+  }: { value: number; label?: string; 'label-top'?: boolean } = $props()
 
   let hours = $derived(Math.floor(value / 3600))
   let minutes = $derived(Math.floor((value % 3600) / 60))
@@ -29,6 +27,6 @@
   <EditableNumber class="min-w-8" bind:value={() => minutes, setMinutes}></EditableNumber>
   <EditableNumber class="min-w-8" bind:value={() => seconds, setSeconds}></EditableNumber>
   {#each label ? [label] : [...'hms'] as l}
-    <span class={['text-xs muted', label && 'col-span-full']}>{l}</span>
+    <span class={['text-xs muted', label && 'col-span-full', labelTop && 'row-start-1']}>{l}</span>
   {/each}
 </div>

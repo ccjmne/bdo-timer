@@ -18,6 +18,8 @@
     running: boolean
   } = $props()
 
+  let w = $state(0)
+
   function getCurrent() {
     return dir ? time[0] : time[1] - time[0]
   }
@@ -38,6 +40,7 @@
   }
 </script>
 
+<svelte:window bind:outerWidth={w} />
 <div class="grid w-full grid-flow-col grid-cols-[auto_1fr] grid-rows-[1fr_1fr]">
   <button class="btn btn-md rounded-tl-sm join h-full" onclick={() => (dir = !dir)}>
     <label class={['swap swap-rotate', dir && 'swap-active']}>
@@ -67,7 +70,11 @@
       {/each}
     </div>
     <div class="p-2 flex justify-evenly items-center w-full max-sm:flex-col">
-      <TimeInput label={dir ? 'Elapsed' : 'Remaining'} bind:value={getCurrent, updateCurrent} />
+      <TimeInput
+        label={dir ? 'Elapsed' : 'Remaining'}
+        label-top={w < 640}
+        bind:value={getCurrent, updateCurrent}
+      />
       <div class="divider sm:divider-horizontal text-xs m-0 muted">of</div>
       <TimeInput bind:value={() => time[1], updateTotal} />
     </div>
