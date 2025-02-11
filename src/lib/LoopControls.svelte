@@ -34,7 +34,7 @@
       </div>
     </button>
   </div>
-  <div class="join-item flex flex-row">
+  <div class="join-item flex flex-row shadow-md">
     <div class="bg-base-100 ps-4 muted relative flex place-items-center">Loop</div>
     <EditableNumber
       min={1}
