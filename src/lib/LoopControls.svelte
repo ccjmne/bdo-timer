@@ -38,12 +38,12 @@
     <div class="bg-base-100 ps-4 muted relative flex place-items-center">Loop</div>
     <EditableNumber
       min={1}
-      class="bg-base-100 px-2"
+      class="bg-base-100 px-3"
       bind:value={() => loop[0], v => ((loop[0] = v), (loop[1] = Math.max(loop[0], loop[1])))}
     ></EditableNumber>
     <div class="bg-base-100 muted relative flex place-items-center">of</div>
     <EditableNumber
-      class="bg-base-100 ps-2 pe-4"
+      class="bg-base-100 ps-3 pe-4"
       bind:value={() => loop[1], v => ((loop[1] = v), (loop[0] = Math.min(loop[0], loop[1])))}
     ></EditableNumber>
   </div>
