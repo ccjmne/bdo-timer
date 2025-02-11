@@ -5,10 +5,6 @@
   font-size: 200%;
 }
 
-.muted {
-  color: var(--color-gray-400);
-}
-
 @theme {
   --ease-out-quad: cubic-bezier(0.5, 1, 0.89, 1);
   --animate-fall: fall 2s var(--ease-out-quad) infinite;
@@ -24,6 +20,10 @@
       height: 5%;
     }
   }
+}
+
+@utility muted {
+  @apply text-gray-400;
 }
 
 @utility animate-reverse {
