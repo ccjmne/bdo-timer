@@ -4,8 +4,8 @@
   let {
     value = $bindable(1200),
     label,
-    'label-top': labelTop = false,
-  }: { value: number; label?: string; 'label-top'?: boolean } = $props()
+    class: cls,
+  }: { value: number; label?: string; class?: string } = $props()
 
   let hours = $derived(Math.floor(value / 3600))
   let minutes = $derived(Math.floor((value % 3600) / 60))
@@ -22,11 +22,13 @@
   }
 </script>
 
-<div class="grid grid-cols-3 text-center">
+<div class={[cls, 'grid grid-cols-3 place-items-center']}>
   <EditableNumber class="min-w-8" bind:value={() => hours, setHours}></EditableNumber>
   <EditableNumber class="min-w-8" bind:value={() => minutes, setMinutes}></EditableNumber>
   <EditableNumber class="min-w-8" bind:value={() => seconds, setSeconds}></EditableNumber>
-  {#each label ? [label] : [...'hms'] as l}
-    <span class={['text-xs muted', label && 'col-span-full', labelTop && 'row-start-1']}>{l}</span>
-  {/each}
+  {#if label}
+    <span class="label text-xs muted col-span-full">{label}</span>
+  {:else}
+    {#each [...'hms'] as l}<span class="label text-xs muted">{l}</span>{/each}
+  {/if}
 </div>
