@@ -9,7 +9,7 @@
   let beeping = $state(true)
 </script>
 
-<main class="flex flex-col text-white gap-4">
+<main class="flex flex-col gap-4">
   <LoopControls bind:time bind:loop bind:running {beeping}></LoopControls>
   <input
     type="range"
@@ -19,7 +19,5 @@
     class="range w-full"
     oninput={() => (running = false)}
   />
-  <div class="flex flex-col gap-2 sm:flex-row place-items-center w-full justify-between">
-    <CountdownCard bind:time bind:dir bind:beeping {running} />
-  </div>
+  <CountdownCard bind:time bind:dir bind:beeping {running} />
 </main>
