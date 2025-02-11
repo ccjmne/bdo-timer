@@ -30,6 +30,14 @@
   function deserialise(v: string) {
     value = isNaN(parseInt(v)) ? 0 : parseInt(v)
   }
+
+  function onkeydown(e: KeyboardEvent) {
+    if (['ArrowUp', 'ArrowRight'].includes(e.key)) value = Math.min(value + 1, max)
+    else if (['ArrowDown', 'ArrowLeft'].includes(e.key)) value = Math.max(value - 1, min)
+    else if (['Home', 'PageUp'].includes(e.key)) value = max
+    else if (['End', 'PageDown'].includes(e.key)) value = min
+    if (isNaN(parseInt(e.key))) e.preventDefault()
+  }
 </script>
 
 <div
@@ -42,7 +50,7 @@
     contenteditable="true"
     bind:innerText={serialise, deserialise}
     {onfocus}
-    onkeypress={e => isNaN(parseInt(e.key)) && e.preventDefault()}
+    {onkeydown}
   ></div>
   {#if children}
     <label class="block text-center muted">{@render children()}</label>
