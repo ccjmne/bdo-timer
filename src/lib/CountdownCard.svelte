@@ -38,8 +38,8 @@
   }
 </script>
 
-<div class="grid w-full [grid-template-areas:'dir_main''beep_main'] grid-cols-[auto_1fr]">
-  <button class="btn btn-md rounded-tl-sm join h-full [grid-area:dir]" onclick={() => (dir = !dir)}>
+<div class="grid w-full grid-flow-col grid-cols-[auto_1fr] grid-rows-[1fr_1fr]">
+  <button class="btn btn-md rounded-tl-sm join h-full" onclick={() => (dir = !dir)}>
     <label class={['swap swap-rotate', dir && 'swap-active']}>
       <Up class="swap-on" />
       <Down class="swap-off" />
@@ -51,9 +51,7 @@
       <NoBeep class="swap-off" />
     </label>
   </button>
-  <div
-    class="relative isolate rounded-e-sm bg-base-100 border-[#8882] border-t-1 shadow-md [grid-area:main]"
-  >
+  <div class="relative isolate rounded-e-sm bg-base-100 shadow-md row-span-full">
     <div class="flex justify-evenly absolute inset-0 z-[-1] overflow-hidden">
       {#each [...Array(24).keys()].map(() => Math.random() * 2 + 's') as delay}
         <div class="w-[1px] bg-[#8882] max-sm:[&:nth-child(-n+10)]:hidden">
