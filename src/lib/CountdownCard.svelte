@@ -40,13 +40,13 @@
 
 <div class="grid w-full [grid-template-areas:'dir_main''beep_main'] grid-cols-[auto_1fr]">
   <button class="btn btn-md rounded-tl-md h-full [grid-area:dir]" onclick={() => (dir = !dir)}>
-    <label class={['swap swap-rotate', { 'swap-active': dir }]}>
+    <label class={['swap swap-rotate', dir && 'swap-active']}>
       <Up class="swap-on" />
       <Down class="swap-off" />
     </label>
   </button>
   <button class="btn btn-md rounded-bl-md h-full" onclick={() => (beeping = !beeping)}>
-    <label class={['swap', { 'swap-active': beeping }]}>
+    <label class={['swap', beeping && 'swap-active']}>
       <Beep class="swap-on" />
       <NoBeep class="swap-off" />
     </label>

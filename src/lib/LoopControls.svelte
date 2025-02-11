@@ -28,7 +28,7 @@
       class="btn join-item"
       onclick={() => (loop[1] = last ? Infinity : loop[0])}
     >
-      <div class={['swap', { 'swap-active': last }]}>
+      <div class={['swap', last && 'swap-active']}>
         <Loop class="swap-off" />
         <NoLoop class="swap-on" />
       </div>
