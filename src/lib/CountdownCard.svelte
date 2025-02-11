@@ -52,9 +52,9 @@
     </label>
   </button>
   <div
-    class="relative rounded-e-sm bg-base-100 border-[#8882] border-t-1 border-r-0 w-full shadow-md [grid-area:main] overflow-hidden"
+    class="relative isolate rounded-e-sm bg-base-100 border-[#8882] border-t-1 shadow-md [grid-area:main]"
   >
-    <div class="flex justify-evenly absolute inset-0 pointer-events-none">
+    <div class="flex justify-evenly absolute inset-0 z-[-1] overflow-hidden">
       {#each [...Array(24).keys()].map(() => Math.random() * 2 + 's') as delay}
         <div class="w-[1px] bg-[#8882] max-sm:[&:nth-child(-n+10)]:hidden">
           <div
