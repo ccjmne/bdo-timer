@@ -2,7 +2,7 @@
 @plugin "daisyui";
 
 :root {
-  font-size: 32px;
+  font-size: 200%;
 }
 
 .muted {
