@@ -9,11 +9,13 @@
     loop = $bindable([1, Infinity]),
     running = $bindable(false),
     beeping,
+    class: cls,
   }: {
     time: [current: number, goal: number]
     loop: [current: number, goal: number]
     running: boolean
     beeping: boolean
+    class?: string
   } = $props()
 
   let beep: HTMLAudioElement
@@ -52,7 +54,7 @@
   })
 </script>
 
-<button type="button" class="btn grow" disabled={!runnable} onclick={click}>
+<button type="button" class={[cls, 'btn grow']} disabled={!runnable} onclick={click}>
   {#if action === 'Start'}
     <Play />
   {:else if action === 'Resume'}
