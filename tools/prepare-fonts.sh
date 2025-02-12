@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-# Get only the following glyphs: 0123456789+-,.
-readonly outfit=$(curl -L 'https://fonts.googleapis.com/css2?family=Outfit:wght@400&text=0123456789%2B-%2C.' | grep -Po '(?<=url\()[^)]+')
+# Get only the following glyphs: 0123456789+-,.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+readonly outfit=$(curl -L 'https://fonts.googleapis.com/css2?family=Outfit:wght@400&text=0123456789%2B-%2C.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' | grep -Po '(?<=url\()[^)]+')
 
 # Get only the following glyphs: ∞
 readonly syne=$(curl -L 'https://fonts.googleapis.com/css2?family=Syne:wght@500&text=%E2%88%9E' | grep -Po '(?<=url\()[^)]+')
