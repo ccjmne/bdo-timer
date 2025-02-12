@@ -46,6 +46,7 @@
   }
 
   $effect(() => {
+    if (!runnable) running = false
     let ival = running && setInterval(nexttick, 1000)
     return () => clearInterval(ival as number)
   })
