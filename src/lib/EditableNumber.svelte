@@ -33,7 +33,7 @@
     else if (['ArrowDown', 'ArrowLeft'].includes(e.key)) value = Math.max(value - 1, min)
     else if (['Home', 'PageUp'].includes(e.key)) value = max
     else if (['End', 'PageDown'].includes(e.key)) value = min
-    if (isNaN(parseInt(e.key))) e.preventDefault()
+    if (e.key !== 'Tab' && isNaN(parseInt(e.key))) e.preventDefault()
   }
 </script>
 
