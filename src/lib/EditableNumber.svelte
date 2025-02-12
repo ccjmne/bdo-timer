@@ -31,8 +31,6 @@
   function onkeydown(e: KeyboardEvent) {
     if (['ArrowUp', 'ArrowRight'].includes(e.key)) value = Math.min(value + 1, max)
     else if (['ArrowDown', 'ArrowLeft'].includes(e.key)) value = Math.max(value - 1, min)
-    else if (['Home', 'PageUp'].includes(e.key)) value = max
-    else if (['End', 'PageDown'].includes(e.key)) value = min
     if (e.key !== 'Tab' && isNaN(parseInt(e.key))) e.preventDefault()
   }
 </script>
