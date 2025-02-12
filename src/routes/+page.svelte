@@ -11,13 +11,6 @@
 
 <main class="flex flex-col gap-4">
   <LoopControls bind:time bind:loop bind:running {beeping}></LoopControls>
-  <input
-    type="range"
-    bind:value={time[0]}
-    min={0}
-    max={time[1]}
-    class="range w-full"
-    oninput={() => (running = false)}
-  />
+  <input type="range" bind:value={time[0]} min={0} max={time[1]} class="range w-full" />
   <CountdownCard bind:time bind:dir bind:beeping {running} />
 </main>
