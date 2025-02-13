@@ -18,6 +18,8 @@
 :root {
   font-size: 200%;
   @apply tracking-wide;
+  /* Eyeballed lighter extrapolation of --color-base */
+  background-color: oklch(0.29 0.02 256.44);
 }
 
 @theme {
