@@ -32,7 +32,7 @@
       <NoLoop class="swap-on" />
     </div>
   </button>
-  <div class="bg-base-100 flex flex-row shadow-md justify-center items-center max-md:rounded-tr-sm">
+  <div class="bg-base-100 flex flex-row justify-center items-center max-md:rounded-tr-sm">
     <div class="ps-4 muted">Loop</div>
     <EditableNumber
       min={1}

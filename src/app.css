@@ -1,5 +1,12 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: dim --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+  name: "dim";
+  --radius-field: var(--radius-sm);
+}
 
 @font-face {
   font-family: Syne;
@@ -18,8 +25,7 @@
 :root {
   font-size: 200%;
   @apply tracking-wide;
-  /* Eyeballed lighter extrapolation of --color-base */
-  background-color: oklch(0.29 0.02 256.44);
+  background: oklch(from var(--color-base-100) calc(l + 0.035) calc(c + 0.003) calc(h + 0.06));
 }
 
 @theme {
@@ -41,7 +47,7 @@
 }
 
 @utility muted {
-  @apply text-gray-400;
+  @apply opacity-50;
 }
 
 @utility animate-reverse {
