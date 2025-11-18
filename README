@@ -1,0 +1,67 @@
+Revisions: 1                       BDO Timer                        Éric NICOLAS
+Latest: 2025-11-18                 =========
+
+A friend of mine told me of their woes following the sudden disappearance of
+their favourite YouTube channel that'd offer videos of various duration to serve
+as a *timer*.
+
+How could *that* be the timer most suitable to their need?  Well, they wanted:
+
+Something that loops, something that's easily set up without to type all over
+the place, and most primarily: the option to start an <X>-minute timer already
+<Y>% through its <Z>th loop.  And you know what?  With those requirements, I
+could indeed not quite find an adequate drop-in replacement—so I made one.
+
+It's a timer.
+
+It serves a particular timer-niche that not all timers do, but it also may be
+used as any ol' regular timer would.  It's a fairly usable one at that, though
+it doesn't adapt too well to mobile just yet: none of its users cared at all for
+that so far.
+
+Philosophy ---------------------------------------------------------------------
+
+    In the way of features, the main recurring theme is that you can't
+    "break" that app, whatever you do, it's fine with it.  The rest of the
+    configuration will adjust to make sense of the most recent, possibly
+    clashing, change you're introducing, regardless of whether it's running,
+    paused, not started or ended.
+
+    A little "beep" sound occurs at the end of each loop, unless you've
+    toggled that off through the button that displays a music note.  That
+    beep is as possibly non-obnoxious a beep as could be conceived, yet
+    still savvily chosen to be heard even while in the middle of some pretty
+    intense gaming session and listening to some music.  That's a lot for an
+    8kb ogg file, heh?
+
+Features -----------------------------------------------------------------------
+
+    Its only feature that you may not come to figure out on your own by
+    clicking frantically everywhere and trying hard to break it is that you
+    may scroll up and down over any number to manipulate it.
+
+    You can enable or disable looping.  You can have any number of loops,
+    up to infinitely many.  You can choose, at any moment to *be* at any
+    iteration ("loop") that you wish.  If you forcibly move past the maximum
+    number of loops, that number will increase.  If you decrease that
+    maximum number below that of your current iteration, no worries, the
+    obvious happens.
+
+    The same way, you can choose, at any time, to be at any progress of your
+    current loop.
+
+    - You may pause or resume.
+    - You may choose to display the time remaining or the time elapsed.
+    - You may drag and drop the linear slider, type in the hours, minutes
+      and seconds, or simply scroll up or down over any of numeric "inputs".
+    - Every numeric valid is one such input.
+    - To loop indefinitely, use button labelled with a looping icon next to
+      the loop counter.
+
+What else ----------------------------------------------------------------------
+
+    I could have some configuration saving/loading mechanism, some
+    light/dark themes, or anything else you want: just ask me, I'm having
+    fun with this.
+
+                                                          vim: tw=80 sw=4 et sta
