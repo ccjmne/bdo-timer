@@ -1,5 +1,5 @@
-Revisions: 1                       BDO Timer                        Éric NICOLAS
-Latest: 2025-11-18                 =========
+Revisions: 2                       BDO Timer                        Éric NICOLAS
+Latest: 2026-03-19                 =========                    ccjmne@gmail.com
 
 A friend of mine told me of their woes following the sudden disappearance of
 their favourite YouTube channel that'd offer videos of various duration to serve
@@ -7,10 +7,11 @@ as a *timer*.
 
 How could *that* be the timer most suitable to their need?  Well, they wanted:
 
-Something that loops, something that's easily set up without to type all over
-the place, and most primarily: the option to start an <X>-minute timer already
-<Y>% through its <Z>th loop.  And you know what?  With those requirements, I
-could indeed not quite find an adequate drop-in replacement—so I made one.
+Something that loops, something that's easily set up without having to type
+all over the place, and most primarily: the option to start an <X>-minute
+timer already <Y>% through its <Z>th loop.  And you know what?  With those
+requirements, I could indeed not quite find an adequate drop-in replacement—so
+I made one.
 
 It's a timer.
 
@@ -22,8 +23,8 @@ that so far.
 Philosophy ---------------------------------------------------------------------
 
     In the way of features, the main recurring theme is that you can't
-    "break" that app, whatever you do, it's fine with it.  The rest of the
-    configuration will adjust to make sense of the most recent, possibly
+    "break" that app: whatever you do, it'll go with the flow.  The rest of
+    the configuration will adjust to make sense of the most recent, possibly
     clashing, change you're introducing, regardless of whether it's running,
     paused, not started or ended.
 
@@ -32,7 +33,7 @@ Philosophy ---------------------------------------------------------------------
     beep is as possibly non-obnoxious a beep as could be conceived, yet
     still savvily chosen to be heard even while in the middle of some pretty
     intense gaming session and listening to some music.  That's a lot for an
-    8kb ogg file, heh?
+    8kb ogg file, eh?
 
 Features -----------------------------------------------------------------------
 
@@ -42,19 +43,20 @@ Features -----------------------------------------------------------------------
 
     You can enable or disable looping.  You can have any number of loops,
     up to infinitely many.  You can choose, at any moment to *be* at any
-    iteration ("loop") that you wish.  If you forcibly move past the maximum
-    number of loops, that number will increase.  If you decrease that
+    iteration ("loop") that you wish.  If you forcibly move past the
+    maximum number of loops, that number will increase, and if you were
+    in non-looping mode, that gets apty rectified.  If you decrease that
     maximum number below that of your current iteration, no worries, the
-    obvious happens.
+    obvious happens then also.
 
     The same way, you can choose, at any time, to be at any progress of your
     current loop.
 
     - You may pause or resume.
-    - You may choose to display the time remaining or the time elapsed.
+    - You may choose to display the time remaining, or the time elapsed.
     - You may drag and drop the linear slider, type in the hours, minutes
       and seconds, or simply scroll up or down over any of numeric "inputs".
-    - Every numeric valid is one such input.
+    - Every numeric value is one such input.
     - To loop indefinitely, use button labelled with a looping icon next to
       the loop counter.
 
@@ -64,4 +66,4 @@ What else ----------------------------------------------------------------------
     light/dark themes, or anything else you want: just ask me, I'm having
     fun with this.
 
-                                                          vim: tw=80 sw=4 et sta
+                                             vim: tw=80 sw=4 et sta cc=1,5,80,-4
